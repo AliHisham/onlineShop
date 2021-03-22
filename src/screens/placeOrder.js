@@ -5,14 +5,19 @@ import { Link } from "react-router-dom";
 import CheckSteps from "../components/ChekoutSteps";
 import { OrderAction } from "../actions/OrderAction";
 
-const PlaceOrder = () => {
+const PlaceOrder = ({ history }) => {
   const cartState = useSelector((state) => {
     return state.cart;
   });
   const { userInfo } = useSelector((state) => {
     return state.login;
   });
+  const orderCreate = useSelector((state) => {
+    return state.orderDetails;
+  });
+  const { order, success } = orderCreate;
   const dispatch = useDispatch();
+
   const { shippingAddress, paymentMethod, cartItems } = cartState;
   var ItemsPrice = cartItems.reduce(
     (qty, item) => qty + item.price * item.qty,
@@ -23,7 +28,14 @@ const PlaceOrder = () => {
   var totalPrice = Number(
     Number(ItemsPrice) + Number(taxPrice) + Number(shippingPrice)
   ).toFixed(2);
-  const createOrder = () => {
+
+  useEffect(() => {
+    if (success) {
+      history.push("/order/" + order._id);
+    }
+  }, [history, success]);
+
+  const createOrderr = () => {
     dispatch(
       OrderAction({
         user: userInfo.id,
@@ -35,6 +47,7 @@ const PlaceOrder = () => {
         totalPrice: totalPrice,
       })
     );
+    console.log("a7aaaaa");
   };
 
   return (
@@ -126,12 +139,9 @@ const PlaceOrder = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
+                  onClick={createOrderr}
                   variant='primary'
                   className='btn btn-block'
-                  onClick={createOrder({
-                    vertical: "top",
-                    horizontal: "right",
-                  })}
                 >
                   ORDER
                 </Button>

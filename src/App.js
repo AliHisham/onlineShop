@@ -11,6 +11,8 @@ import ProfileScreen from "./screens/profileScreen";
 import Shipping from "./screens/ShippingScreen";
 import Payment from "./screens/Payment";
 import PlaceOrder from "./screens/placeOrder";
+import OrderSCreen from "./screens/OrderScreen";
+import UserOrders from "./screens/UserOrders";
 
 import { useSelector } from "react-redux";
 
@@ -35,6 +37,9 @@ function App() {
           <Route path='/shipping' component={Shipping}></Route>
           <Route path='/payment' component={Payment}></Route>
           <Route path='/placeorder' component={PlaceOrder}></Route>
+          <Route path='/order/:id' component={OrderSCreen}></Route>
+          <Route path='/userOrders/:id' component={UserOrders}></Route>
+
           <Route
             path='/profile/:id'
             render={(props) => {

@@ -132,6 +132,44 @@ Eapp.post("/create/order", async (req, res) => {
     res.send(createdOrder);
   }
 });
+Eapp.get("/order/:id", async (req, res) => {
+  try {
+    const TheOrder = await OrderM.findById(req.params.id);
+    res.send(TheOrder);
+  } catch (error) {
+    console.log(error);
+  }
+});
+Eapp.put("/updateorder/:id", async (req, res) => {
+  const order = await OrderM.findById(req.params.id);
+  if (order) {
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address,
+    };
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    console.log("there is something wrong");
+  }
+});
+Eapp.get("/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_ID);
+});
+
+Eapp.get("/userOrders/:id", async (req, res) => {
+  try {
+    const userOrders = await OrderM.find({ user: req.params.id });
+    res.json(userOrders);
+    console.log(userOrders, "ali hheshamamaam");
+  } catch (error) {
+    console.log(error, "rrr");
+  }
+});
 
 const PORT = process.env.PORT;
 

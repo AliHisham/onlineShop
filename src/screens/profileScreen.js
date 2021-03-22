@@ -12,6 +12,7 @@ const UpdateSchema = Yup.object().shape({
 });
 
 const ProfileScreen = ({ match }) => {
+  var id = match.params.id;
   console.log("match@,@,", match);
   const dispatch = useDispatch();
   const Getdetails = useSelector((state) => {

@@ -32,9 +32,12 @@ const Header = () => {
               </LinkContainer>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
-                  {console.log(userInfo, "ali hesham from header")}
+                  {console.log(userInfo.type, "ali hesham from header")}
                   <LinkContainer to={"/profile/" + userInfo.id}>
                     <NavDropdown.Item>profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to={"/userOrders/" + userInfo.id}>
+                    <NavDropdown.Item>orders</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to={"/"}>
                     <NavDropdown.Item onClick={logoutt}>
@@ -48,6 +51,22 @@ const Header = () => {
                     <i className='fas fa-user'></i> sign in
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && userInfo.type && (
+                <NavDropdown title='admin' id='adminnav'>
+                  {console.log(userInfo.type, "ali hesham from header")}
+                  <LinkContainer to={"/users/"}>
+                    <NavDropdown.Item>show users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to={"/allOrders/"}>
+                    <NavDropdown.Item>all orders</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to={"/"}>
+                    <NavDropdown.Item onClick={logoutt}>
+                      Logout
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>
