@@ -156,6 +156,7 @@ Eapp.put("/updateorder/:id", async (req, res) => {
     res.json(updatedOrder);
   } else {
     console.log("there is something wrong");
+    console.log("aa");
   }
 });
 Eapp.get("/paypal", (req, res) => {
