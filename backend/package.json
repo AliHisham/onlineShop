@@ -1,6 +1,9 @@
 {
   "name": "mernshop",
   "version": "0.1.0",
+  "engines": {
+    "node": "12.13.0"
+  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -32,8 +35,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-server": "nodemon  ./backend/server.js",
-    "data:import": "nodemon  ./backend/seeder.js"
+    "start-server": "nodemon  ./server.js",
+    "data:import": "nodemon  ./seeder.js"
   },
   "eslintConfig": {
     "extends": [

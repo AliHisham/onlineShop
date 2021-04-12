@@ -256,7 +256,7 @@ Eapp.put("/updateOrderAdmin/:id", async (req, res) => {
     res.send(updatedOrder);
   } catch (error) {
     res.send(error);
-    console.log(error, "ali hesham ");
+    console.log(error, "ali heshammmmm ");
   }
 });
 Eapp.get("/carouselproducts", (req, res) => {
