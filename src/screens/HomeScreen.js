@@ -4,7 +4,7 @@ import Product from "../components/Product";
 import { Row, Col } from "react-bootstrap";
 import productListAction from "../actions/productListAction";
 import Loader from "../components/Spinner";
-
+import Carousel from "../components/Carousel";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => {
@@ -18,6 +18,7 @@ const HomeScreen = () => {
 
   return (
     <>
+      <Carousel></Carousel>
       <h1>latest products</h1>
       {loading ? (
         <Loader></Loader>

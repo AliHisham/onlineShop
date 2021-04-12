@@ -54,3 +54,54 @@ export const UpdateProfileReducer = (state = {}, action) => {
       return state;
   }
 };
+export const GetAllUsersReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case "GET_ALLUSERS_REQUEST":
+      return { loading: true };
+    case "GET_ALLUSERS_SUCCESS":
+      return { loading: false, users: action.payload };
+    case "GET_ALLUSERS_FAIL":
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+export const DeleteUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "DELETE_USER_REQUEST":
+      return { loading: true };
+    case "DELETE_USER_SUCCESS":
+      return { loading: false, success: true };
+    case "DELETE_USER_FAIL":
+      return { loading: false, success: false };
+    default:
+      return state;
+  }
+};
+export const EditUserAdminReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "ADMIN_EDIT_USER_REQUEST":
+      return { loading: true };
+    case "ADMIN_EDIT_USER_SUCCESS":
+      return { loading: false, theUser: action.payload };
+    case "ADMIN_EDIT_USER_FAIL":
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+export const UpdateUserAdminReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "ADMIN_UPDATE_USER_REQUEST":
+      return { loading: true };
+    case "ADMIN_UPDATE_USER_SUCCESS":
+      return { loading: false, success: true, user: action.payload };
+    case "ADMIN_UPDATE_USER_FAIL":
+      return { loading: false, error: action.payload };
+    case "ADMIN_UPDATE_USER_RESET":
+      return {};
+    default:
+      return state;
+  }
+};

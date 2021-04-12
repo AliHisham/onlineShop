@@ -28,6 +28,7 @@ Eapp.use((req, res, next) => {
 Eapp.get("/", (req, res) => {
   res.send("server is runninnnnngg");
 });
+
 Eapp.get("/products", (req, res) => {
   const products = ProductM.find();
   products.then((result) => {
@@ -170,7 +171,99 @@ Eapp.get("/userOrders/:id", async (req, res) => {
     console.log(error, "rrr");
   }
 });
+Eapp.get("/allUsers", async (req, res) => {
+  const allUsers = await UserM.find();
+  res.send(allUsers);
+});
+Eapp.delete("/deleteUser/:id", async (req, res) => {
+  UserM.deleteOne({ _id: req.params.id }).then((result) => {
+    res.send(result);
+  });
+});
+Eapp.get("/editUserAdmin/:id", async (req, res) => {
+  try {
+    const editUser = await UserM.findById(req.params.id);
+    res.send({
+      name: editUser.name,
+      email: editUser.email,
+      isAdmin: editUser.isAdmin,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+});
+Eapp.put("/adminUpdate/:id", async (req, res) => {
+  const adminUpdate = await UserM.findById(req.params.id).exec();
+  adminUpdate.set(req.body);
+  const result = await adminUpdate.save();
+  res.send(result);
+});
 
-const PORT = process.env.PORT;
+Eapp.post("/createProduct", async (req, res) => {
+  try {
+    const {
+      user,
+      name,
+      image,
+      brand,
+      category,
+      description,
+      price,
+      countInStock,
+    } = req.body;
+    const newProduct = new ProductM({
+      user,
+      name,
+      image,
+      brand,
+      category,
+      description,
+      price,
+      countInStock,
+    });
+    const createdProduct = await newProduct.save();
+    res.send(createdProduct);
+  } catch (error) {
+    res.send(error);
+  }
+});
+Eapp.put("/editProduct/:id", async (req, res) => {
+  try {
+    const product = await ProductM.findById(req.params.id).exec();
+    product.set(req.body);
+    const updatedProduct = await product.save();
+    res.send(updatedProduct);
+  } catch (error) {
+    res.send(error);
+  }
+});
+Eapp.delete("/deleteProduct/:id", async (req, res) => {
+  ProductM.deleteOne({ _id: req.params.id }).then((result) => {
+    res.send(result);
+  });
+});
+Eapp.get("/allorders", async (req, res) => {
+  const allOrders = await OrderM.find();
+  res.send(allOrders);
+});
+const PORT = process.env.PORT || 5000;
+
+Eapp.put("/updateOrderAdmin/:id", async (req, res) => {
+  try {
+    const oneOrder = await OrderM.findById(req.params.id).exec();
+    oneOrder.set(req.body);
+    const updatedOrder = await oneOrder.save();
+    res.send(updatedOrder);
+  } catch (error) {
+    res.send(error);
+    console.log(error, "ali hesham ");
+  }
+});
+Eapp.get("/carouselproducts", (req, res) => {
+  const products = ProductM.find().limit(3);
+  products.then((result) => {
+    res.send(result);
+  });
+});
 
 Eapp.listen(PORT, console.log(` server is runnig on port ${PORT}`));

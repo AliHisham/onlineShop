@@ -61,3 +61,39 @@ export const UpdateAction = (id, values) => (dispatch) => {
       dispatch({ type: "UPDATE_FAIL", payload: error });
     });
 };
+export const GetAllUsersAction = () => async (dispatch) => {
+  dispatch({ type: "GET_ALLUSERS_REQUEST" });
+  const { data } = await axios.get("http://localhost:5000/allUsers");
+  dispatch({ type: "GET_ALLUSERS_SUCCESS", payload: data });
+};
+export const DeleteUserAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "DELETE_USER_REQUEST" });
+    const { data } = await axios.delete(
+      "http://localhost:5000/deleteUser/" + id
+    );
+    dispatch({ type: "DELETE_USER_SUCCESS" });
+  } catch (error) {
+    dispatch({ type: "DELETE_USER_FAIL", payload: error });
+  }
+};
+export const EditUserAdminAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "ADMIN_EDIT_USER_REQUEST" });
+    const { data } = await axios.get(
+      "http://localhost:5000/editUserAdmin/" + id
+    );
+    dispatch({ type: "ADMIN_EDIT_USER_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({ type: "ADMIN_EDIT_USER_FAIL", payload: error });
+  }
+};
+
+export const UpdateUserAdminAction = (id, values) => (dispatch) => {
+  dispatch({ type: "ADMIN_UPDATE_USER_REQUEST" });
+  axios
+    .put("http://localhost:5000/adminUpdate/" + id, values)
+    .then((result) => {
+      dispatch({ type: "ADMIN_UPDATE_USER_SUCCESS", payload: result.data });
+    });
+};

@@ -55,16 +55,14 @@ const Header = () => {
               {userInfo && userInfo.type && (
                 <NavDropdown title='admin' id='adminnav'>
                   {console.log(userInfo.type, "ali hesham from header")}
-                  <LinkContainer to={"/users/"}>
-                    <NavDropdown.Item>show users</NavDropdown.Item>
+                  <LinkContainer to={"/allusers"}>
+                    <NavDropdown.Item>users</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to={"/allOrders/"}>
-                    <NavDropdown.Item>all orders</NavDropdown.Item>
+                  <LinkContainer to={"/allproducts"}>
+                    <NavDropdown.Item>products</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to={"/"}>
-                    <NavDropdown.Item onClick={logoutt}>
-                      Logout
-                    </NavDropdown.Item>
+                  <LinkContainer to={"/allorders"}>
+                    <NavDropdown.Item>orders</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )}

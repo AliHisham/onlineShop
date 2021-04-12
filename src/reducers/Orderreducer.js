@@ -58,3 +58,32 @@ export const UserOrders = (state = { orders: [] }, action) => {
       return state;
   }
 };
+export const GetAllOrders = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case "GET_ALL_ORDERS_REQUEST":
+      return { loading: true };
+    case "GET_ALL_ORDERS_SUCCESS":
+      return { loading: false, orders: action.payload };
+    case "GET_ALL_ORDERS_FAIL":
+      return { loading: false, error: action.payload };
+    case "GET_ALL_ORDERS_RESET":
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const UpdateOrder = (state = {}, action) => {
+  switch (action.type) {
+    case "UPDATE_ORDER_ADMIN_REQUEST":
+      return { loading: true };
+    case "UPDATE_ORDER_ADMIN_SUCCESS":
+      return { loading: false, updatedOrder: action.payload, success: true };
+    case "UPDATE_ORDER_ADMIN_FAIL":
+      return { loading: false, error: action.payload };
+    case "UPDATE_ORDER_ADMIN_RESET":
+      return {};
+    default:
+      return state;
+  }
+};
